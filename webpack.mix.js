@@ -13,4 +13,16 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .vue()
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .webpackConfig({
+        module: {
+          rules: [{
+            test: /\.pug$/,
+            loader: 'pug-plain-loader'
+          },{
+            test: /\.styl(us)?$/,
+            loader: 'style-loader',
+          }
+        ],
+        }
+      });
