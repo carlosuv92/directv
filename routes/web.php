@@ -20,4 +20,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+Route::prefix('almacen')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\Almacen\DashboardController::class, 'index'])->name('almacen.dashboard');
+    Route::get('/guide-list', [App\Http\Controllers\Almacen\GuideController::class, 'index'])->name('almacen.listguide');
+    Route::get('/warehouse/insert', [App\Http\Controllers\Almacen\WarehouseController::class, 'index'])->name('warehouse.index');
+});
+
+Route::resource('guides', App\Http\Controllers\Almacen\GuideController::class);
+Route::prefix('guides')->group(function () {
+});

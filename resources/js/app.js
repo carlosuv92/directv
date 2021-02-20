@@ -20,14 +20,19 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('dashboard-index', require('./components/dashboard/DashboardIndex.vue').default);
 
+//Almacen
+Vue.component('dashboard-index', require('./components/almacen/dashboard/DashboardIndex.vue').default);
+Vue.component('list-guides', require('./components/almacen/guide/ListGuides.vue').default);
+Vue.component('new-guide', require('./components/almacen/guide/NewGuide.vue').default);
+Vue.component('insert-warehouse', require('./components/almacen/warehouse/InsertWarehouse.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+export const eventBus = new Vue()
 const app = new Vue({
     el: '#app',
 });

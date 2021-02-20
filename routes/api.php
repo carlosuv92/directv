@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Methods: POST,GET,PUT,PATCH,OPTIONS');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +21,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('get_users', [App\Http\Controllers\Api\ApiUserController::class, 'getUsers']);
+Route::post('get_guides', [App\Http\Controllers\Api\ApiWarehouseController::class, 'getListGuide']);
