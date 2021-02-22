@@ -1,6 +1,6 @@
 @extends('layouts.principal')
 
 @section('content')
-    {{$guide}}
-    <insert-warehouse></insert-warehouse>
+
+    <insert-warehouse :guide="{{json_encode($guide)}}"></insert-warehouse>
 @endsection

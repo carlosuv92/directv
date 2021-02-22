@@ -16,9 +16,9 @@
                                 div(class="row")
                                     div(class="col-xl-5 col-md-5 col-sm-5 col-5")
                                     div(class="col-xl-5 col-md-5 col-sm-5 col-5")
-                                        input(type="text" class="form-control" style="margin: 15px 15px;height:35px;float: right;")
+                                        input(type="text" class="form-control" style="margin: 15px 15px;height:35px;float: right;" v-model="search" @keyup.enter="getListGuide()")
                                     div(class="col-xl-2 col-md-2 col-sm-2 col-2")
-                                        button(class="btn btn-warning mb-2 mr-2 btn-rounded" style="margin: 15px 15px;float: right;") Search
+                                        button(class="btn btn-warning mb-2 mr-2 btn-rounded" style="margin: 15px 15px;float: right;" @click="getListGuide()") Search
                     div(class="widget-content widget-content-area")
                         div(class="table-responsive")
                             table(class="table table-bordered table-hover table-striped mb-4")
@@ -30,15 +30,16 @@
                                         th(class="text-center") Recibido Por
                                         th
                                 tbody
-                                    tr(v-for="guide in guides" :key="guide.id")
+                                    tr(v-for="guide in guides.data" :key="guide.id")
                                         td {{guide.guide}}
                                         td {{guide.date_reception}}
                                         td {{guide.amount}}
                                         td(class="text-center")
                                             span(class="text-success") {{guide.name_user}}
                                         td(class="text-center")
-                                            i(class="fas fa-search" @click="goToWarehouse(guide.id)")
-
+                                            i(class="fas fa-search" style="cursor:pointer;" @click="goToWarehouse(guide.id)")
+                        div
+                            pagination(:data="guides" @pagination-change-page="getListGuide")
                 new-guide(v-if="showModal" @close="close")
         </tr>
 </template>
@@ -49,33 +50,29 @@
         data() {
             return {
                 showModal : false,
-                guides : []
+                guides : {},
+                search : '',
             }
         },
         mounted() {
             eventBus.$on('getListGuide', this.getListGuide)
+            this.getListGuide();
         },
         methods: {
             close() {
                 this.showModal = false;
             },
-            getListGuide(){
-                axios.post("/api/get_guides",{
-                })
+            getListGuide(page = 1){
+                axios.get("/api/get_guides?page=" + page + "&search=" + this.search)
                 .then((response) => {
-                    if (response.status == 200) {
-                        this.guides = response.data;
-                    }
-                }) .catch((err) => {
-                    console.error(err);
+                    this.guides = response.data;
                 });
             },
             goToWarehouse(id){
-                location.href = "warehouse/insert?guide="+id;
+                location.href = "warehouse/insert/"+id;
             }
         },
         created(){
-            this.getListGuide();
         }
     }
 </script>

@@ -23,4 +23,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('get_users', [App\Http\Controllers\Api\ApiUserController::class, 'getUsers']);
-Route::post('get_guides', [App\Http\Controllers\Api\ApiWarehouseController::class, 'getListGuide']);
+Route::get('get_guides', [App\Http\Controllers\Api\ApiWarehouseController::class, 'getListGuide']);
+Route::get('get_modems', [App\Http\Controllers\Api\ApiWarehouseController::class, 'getListModem']);

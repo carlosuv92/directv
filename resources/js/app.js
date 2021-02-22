@@ -31,7 +31,7 @@ Vue.component('insert-warehouse', require('./components/almacen/warehouse/Insert
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+Vue.component('pagination', require('laravel-vue-pagination'));
 export const eventBus = new Vue()
 const app = new Vue({
     el: '#app',

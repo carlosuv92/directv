@@ -23,7 +23,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('almacen')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Almacen\DashboardController::class, 'index'])->name('almacen.dashboard');
     Route::get('/guide-list', [App\Http\Controllers\Almacen\GuideController::class, 'index'])->name('almacen.listguide');
-    Route::get('/warehouse/insert', [App\Http\Controllers\Almacen\WarehouseController::class, 'index'])->name('warehouse.index');
+    Route::get('/warehouse/insert/{id}', [App\Http\Controllers\Almacen\WarehouseController::class, 'index'])->name('warehouse.index');
+    Route::post('/warehouse', [App\Http\Controllers\Almacen\WarehouseController::class, 'store'])->name('warehouse.store');
 });
 
 Route::resource('guides', App\Http\Controllers\Almacen\GuideController::class);
