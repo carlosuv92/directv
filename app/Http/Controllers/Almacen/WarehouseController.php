@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Almacen;
 use App\Http\Controllers\Controller;
 use App\Models\Guide;
 use App\Models\Warehouse;
+use App\Models\WarehouseTechnician;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class WarehouseController extends Controller
@@ -43,15 +45,51 @@ class WarehouseController extends Controller
     {
         DB::beginTransaction();
         try {
-            $modem = new Warehouse();
-            $modem->guide_id = $request->number_guide;
-            $modem->imei = $request->imei;
-            $modem->card = $request->card;
-            $modem->save();
+            $deco = new Warehouse();
+            $deco->guide_id = $request->number_guide;
+            $deco->imei = $request->imei;
+            $deco->card = $request->card;
+            $deco->save();
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
             throw $ex;
         }
+    }
+
+    public function storeDecos(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $check_list = json_decode($request->decos);
+            $guide_out = $this->generateBarcodeNumber();
+                foreach ($check_list as $list) {
+                $deco_tech = new WarehouseTechnician();
+                $deco_tech->warehouse_id = $list->id;
+                $deco_tech->received = $request->person;
+                $deco_tech->send_by = Auth::id();
+                $deco_tech->save();
+
+                $deco_up = Warehouse::whereId($list->id)->first();
+                $deco_up->type_warehouse = 2;
+                $deco_up->guide_out = $guide_out;
+                $deco_up->save();
+            }
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            throw $ex;
+        }
+    }
+    function generateBarcodeNumber() {
+        $number = mt_rand(1000000000, 9999999999);
+        if ($this->barcodeNumberExists($number)) {
+            return generateBarcodeNumber();
+        }
+        return $number;
+    }
+
+    function barcodeNumberExists($number) {
+        return Warehouse::whereGuideOut($number)->exists();
     }
 }

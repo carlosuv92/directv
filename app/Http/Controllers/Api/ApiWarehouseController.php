@@ -15,10 +15,11 @@ class ApiWarehouseController extends Controller
             ->join('users', 'guides.user_id', '=', 'users.id')
             ->where('guides.guide', 'like', '%' . $request->search . '%')
             ->select('guides.*', DB::raw('CONCAT(users.name, ", ", users.surname) AS name_user'))
+            ->orderBy('guides.created_at', 'desc')
             ->paginate(15);
     }
 
-    public function getListModem(Request $request)
+    public function getListDecos(Request $request)
     {
         $search = $request->search;
         return DB::table('warehouses')
@@ -31,10 +32,11 @@ class ApiWarehouseController extends Controller
             })
             ->where('warehouses.guide_id',$request->id_guide)
             ->select('warehouses.*', 'guides.guide')
+            ->orderBy('warehouses.created_at', 'desc')
             ->paginate(15);
     }
 
-    public function getAllListModem(Request $request)
+    public function getAllListDecos(Request $request)
     {
         $search = $request->search;
         return DB::table('warehouses')
@@ -47,6 +49,7 @@ class ApiWarehouseController extends Controller
             })
             ->where('warehouses.type_warehouse', 1)
             ->select('warehouses.*', 'guides.guide')
-            ->paginate(15);
+            ->orderBy('warehouses.created_at', 'desc')
+            ->paginate(10);
     }
 }

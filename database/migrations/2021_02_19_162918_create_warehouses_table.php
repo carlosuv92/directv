@@ -19,6 +19,7 @@ class CreateWarehousesTable extends Migration
             $table->string('imei', 18)->unique();// 15
             $table->string('card', 18)->unique();// 12
             $table->enum('type_warehouse', ['ALMACEN', 'CAMPO', 'VENDIDO', 'LOGISTICA INVERSA', 'ROBADO'])->default('ALMACEN');
+            $table->string('guide_out')->nullable();
             $table->timestamps();
         });
     }

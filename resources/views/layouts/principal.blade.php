@@ -19,6 +19,7 @@
     <link href="{{asset('assets/css/dashboard/dash_1.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/fontawesome/css/all.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/components/custom-modal.css')}}" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body class="alt-menu sidebar-noneoverflow">
@@ -217,9 +218,6 @@
     </script>
     <script src="{{asset('assets/js/custom.js')}}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
-
-    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
-    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 </body>
 
 </html>

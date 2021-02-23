@@ -12,4 +12,15 @@ class ApiUserController extends Controller
     {
         return User::all();
     }
+
+    public function getUsersByRole(Request $request)
+    {
+        $role =  $request->role;
+        return User::whereHas(
+            'roles',
+            function ($q) use ($role) {
+                $q->where('name', $role);
+            }
+        )->get();
+    }
 }

@@ -7,7 +7,27 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
+import Vue from 'vue'
 
+import Swal from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+Vue.use(Swal);
+
+import VueHtmlToPaper from 'vue-html-to-paper';
+const options = {
+    name: '_blank',
+    specs: [
+      'fullscreen=yes',
+      'titlebar=yes',
+      'scrollbars=yes'
+    ],
+    styles: [
+      'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+      'https://unpkg.com/kidlat-css/css/kidlat.css'
+    ]
+  }
+
+Vue.use(VueHtmlToPaper, options);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -27,6 +47,9 @@ Vue.component('list-guides', require('./components/almacen/guide/ListGuides.vue'
 Vue.component('new-guide', require('./components/almacen/guide/NewGuide.vue').default);
 Vue.component('insert-warehouse', require('./components/almacen/warehouse/InsertWarehouse.vue').default);
 Vue.component('give-warehouse', require('./components/almacen/warehouse/GiveWarehouse.vue').default);
+Vue.component('warehouse-asign', require('./components/almacen/warehouse/AssignWarehouse.vue').default);
+Vue.component('warehouse-print', require('./components/almacen/warehouse/printWarehouse.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

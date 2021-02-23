@@ -26,6 +26,7 @@ Route::prefix('almacen')->group(function () {
     Route::get('/warehouse/insert/{id}', [App\Http\Controllers\Almacen\WarehouseController::class, 'index'])->name('warehouse.index');
     Route::post('/warehouse', [App\Http\Controllers\Almacen\WarehouseController::class, 'store'])->name('warehouse.store');
     Route::get('/warehouse/give', [App\Http\Controllers\Almacen\WarehouseController::class, 'list'])->name('warehouse.give');
+    Route::post('/warehouse/decos', [App\Http\Controllers\Almacen\WarehouseController::class, 'storeDecos'])->name('warehouse.decos');
 });
 
 Route::resource('guides', App\Http\Controllers\Almacen\GuideController::class);

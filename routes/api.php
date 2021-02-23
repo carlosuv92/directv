@@ -23,6 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('get_users', [App\Http\Controllers\Api\ApiUserController::class, 'getUsers']);
+Route::post('get_users_byrole', [App\Http\Controllers\Api\ApiUserController::class, 'getUsersByRole']);
 Route::get('get_guides', [App\Http\Controllers\Api\ApiWarehouseController::class, 'getListGuide']);
-Route::get('get_modems', [App\Http\Controllers\Api\ApiWarehouseController::class, 'getListModem']);
-Route::get('get_all_modems', [App\Http\Controllers\Api\ApiWarehouseController::class, 'getAllListModem']);
+Route::get('get_decos', [App\Http\Controllers\Api\ApiWarehouseController::class, 'getListDecos']);
+Route::get('get_all_decos', [App\Http\Controllers\Api\ApiWarehouseController::class, 'getAllListDecos']);
