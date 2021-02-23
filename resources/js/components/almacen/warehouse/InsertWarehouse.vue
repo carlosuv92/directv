@@ -18,7 +18,7 @@
                     div(class="widget-header")
                         div(class="row")
                             div(class="col-xl-12 col-md-12 col-sm-12 col-12")
-                                h4 Input Fields
+                                h4 CAMPOS NECESARIOS
                     div(class="widget-content widget-content-area")
                         div(class="row")
                             div(class="col")
@@ -85,9 +85,8 @@
         },
         methods:{
             getListModem(page = 1){
-                axios.get("/api/get_modems?page=" + page + "&search=" + this.search)
+                axios.get("/api/get_modems?page=" + page + "&search=" + this.search + "&id_guide=" + this.guide.id)
                 .then((response) => {
-                    console.log(response.data)
                     this.modems = response.data;
                 });
             },

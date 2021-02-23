@@ -175,7 +175,7 @@
                                     <a href="{{route('almacen.listguide')}}"> INGRESO DE GUIAS </a>
                                 </li>
                                 <li>
-                                    <a href="starter_kit_breadcrumb.html"> REPARTO DECOS </a>
+                                    <a href="{{route('warehouse.give')}}" > REPARTO DECOS </a>
                                 </li>
                                 <li>
                                     <a href="starter_kit_boxed.html"> LISTA DECOS </a>

@@ -33,6 +33,12 @@ class WarehouseController extends Controller
         ]);
     }
 
+    public function list(Request $request)
+    {
+        $request->user()->authorizeRoles(['technician', 'admin']);
+        return view('almacen.warehouse.give');
+    }
+
     public function store(Request $request)
     {
         DB::beginTransaction();

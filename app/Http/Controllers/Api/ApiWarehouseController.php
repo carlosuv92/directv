@@ -14,24 +14,39 @@ class ApiWarehouseController extends Controller
         return DB::table('guides')
             ->join('users', 'guides.user_id', '=', 'users.id')
             ->where('guides.guide', 'like', '%' . $request->search . '%')
-            ->select('guides.*',DB::raw('CONCAT(users.name, ", ", users.surname) AS name_user'))
+            ->select('guides.*', DB::raw('CONCAT(users.name, ", ", users.surname) AS name_user'))
             ->paginate(15);
     }
 
     public function getListModem(Request $request)
     {
-        if(strlen($request->search)>0){
-            return DB::table('warehouses')
-                ->join('guides', 'warehouses.guide_id', '=', 'guides.id')
-                ->where('warehouses.imei', "=", $request->search)
-                ->orWhere('warehouses.card', "=", $request->search)
-                ->select('warehouses.*','guides.guide')
-                ->paginate(15);
-        }else{
-            return DB::table('warehouses')
-                ->join('guides', 'warehouses.guide_id', '=', 'guides.id')
-                ->select('warehouses.*','guides.guide')
-                ->paginate(15);
-        }
+        $search = $request->search;
+        return DB::table('warehouses')
+            ->join('guides', 'warehouses.guide_id', '=', 'guides.id')
+            ->where(function ($q) use ($search) {
+                if (strlen($search) > 0) {
+                    $q->where('warehouses.imei', "=", $search)
+                        ->orWhere('warehouses.card', "=", $search);
+                }
+            })
+            ->where('warehouses.guide_id',$request->id_guide)
+            ->select('warehouses.*', 'guides.guide')
+            ->paginate(15);
+    }
+
+    public function getAllListModem(Request $request)
+    {
+        $search = $request->search;
+        return DB::table('warehouses')
+            ->join('guides', 'warehouses.guide_id', '=', 'guides.id')
+            ->where(function ($q) use ($search) {
+                if (strlen($search) > 0) {
+                    $q->where('warehouses.imei', "=", $search)
+                        ->orWhere('warehouses.card', "=", $search);
+                }
+            })
+            ->where('warehouses.type_warehouse', 1)
+            ->select('warehouses.*', 'guides.guide')
+            ->paginate(15);
     }
 }

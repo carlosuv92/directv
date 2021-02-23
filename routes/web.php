@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
 
 Auth::routes();
+Route::get('/', function () {
+    return redirect('almacen/dashboard');
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::prefix('almacen')->group(function () {
@@ -25,6 +25,7 @@ Route::prefix('almacen')->group(function () {
     Route::get('/guide-list', [App\Http\Controllers\Almacen\GuideController::class, 'index'])->name('almacen.listguide');
     Route::get('/warehouse/insert/{id}', [App\Http\Controllers\Almacen\WarehouseController::class, 'index'])->name('warehouse.index');
     Route::post('/warehouse', [App\Http\Controllers\Almacen\WarehouseController::class, 'store'])->name('warehouse.store');
+    Route::get('/warehouse/give', [App\Http\Controllers\Almacen\WarehouseController::class, 'list'])->name('warehouse.give');
 });
 
 Route::resource('guides', App\Http\Controllers\Almacen\GuideController::class);

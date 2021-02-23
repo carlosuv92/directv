@@ -2,7 +2,7 @@
     div
         div(class="page-header")
             div(class="page-title")
-                h3 LISTA DE GUIAS
+                h3 LISTA DE EQUIPOS (EN ALMACEN)
             div(style="float: right;margin: 10px 15px;")
                 button(class="btn btn-info mb-2 mr-2 btn-rounded" @click="showModal = true") Nueva Guia
         div(class="row")
@@ -11,7 +11,7 @@
                     div(class="widget-header")
                         div(class="row")
                             div(class="col-xl-6 col-md-6 col-sm-6 col-6")
-                                h4 BUSQUEDA DE GUIAS
+                                h4 ENTREGA DE EQUIPOS
                             div(class="col-xl-6 col-md-6 col-sm-6 col-6")
                                 div(class="row")
                                     div(class="col-xl-5 col-md-5 col-sm-5 col-5")
@@ -25,19 +25,16 @@
                                 thead
                                     tr
                                         th Guia
-                                        th Date
-                                        th Cantidad
-                                        th(class="text-center") Recibido Por
-                                        th
+                                        th Imei
+                                        th Card
+                                        th(class="text-center") ESTADO:
                                 tbody
                                     tr(v-for="guide in guides.data" :key="guide.id")
                                         td {{guide.guide}}
-                                        td {{guide.date_reception}}
-                                        td {{guide.amount}}
+                                        td {{guide.imei}}
+                                        td {{guide.card}}
                                         td(class="text-center")
-                                            span(class="text-success") {{guide.name_user}}
-                                        td(class="text-center")
-                                            i(class="fas fa-search" style="cursor:pointer;" @click="goToWarehouse(guide.id)")
+                                            span(class="text-info") ALMACEN
                         div
                             pagination(:data="guides" @pagination-change-page="getListGuide")
                 new-guide(v-if="showModal" @close="close")
@@ -63,7 +60,7 @@
                 this.showModal = false;
             },
             getListGuide(page = 1){
-                axios.get("/api/get_guides?page=" + page + "&search=" + this.search)
+                axios.get("/api/get_all_modems?page=" + page + "&search=" + this.search)
                 .then((response) => {
                     this.guides = response.data;
                 });

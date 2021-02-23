@@ -16,8 +16,9 @@ class CreateWarehousesTable extends Migration
         Schema::create('warehouses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('guide_id')->references('id')->on('guides')->onDelete('cascade');
-            $table->string('imei', 18); // 15
-            $table->string('card', 18);// 12
+            $table->string('imei', 18)->unique();// 15
+            $table->string('card', 18)->unique();// 12
+            $table->enum('type_warehouse', ['ALMACEN', 'CAMPO', 'VENDIDO', 'LOGISTICA INVERSA', 'ROBADO'])->default('ALMACEN');
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ class CreateWarehouseTechniciansTable extends Migration
     {
         Schema::create('warehouse_technicians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('imei_id')->references('id')->on('warehouses')->onDelete('cascade');
+            $table->foreignId('warehouse_id')->references('id')->on('warehouses')->onDelete('cascade');
             $table->foreignId('received')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('send_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

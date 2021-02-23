@@ -26,6 +26,7 @@ Vue.component('dashboard-index', require('./components/almacen/dashboard/Dashboa
 Vue.component('list-guides', require('./components/almacen/guide/ListGuides.vue').default);
 Vue.component('new-guide', require('./components/almacen/guide/NewGuide.vue').default);
 Vue.component('insert-warehouse', require('./components/almacen/warehouse/InsertWarehouse.vue').default);
+Vue.component('give-warehouse', require('./components/almacen/warehouse/GiveWarehouse.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
