@@ -18,6 +18,8 @@ class CreateWarehouseTechniciansTable extends Migration
             $table->foreignId('warehouse_id')->references('id')->on('warehouses')->onDelete('cascade');
             $table->foreignId('received')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('send_by')->references('id')->on('users')->onDelete('cascade');
+            $table->enum('type_status', ['EN POSESION', 'REASIGNADO', 'VENDIDO', 'DEVUELTO ALMACEN', 'ROBADO'])->default('EN POSESION');
+            $table->string('guide_out')->nullable();
             $table->timestamps();
         });
     }

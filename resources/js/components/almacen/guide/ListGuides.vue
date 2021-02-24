@@ -3,7 +3,7 @@
         div(class="page-header")
             div(class="page-title")
                 h3 LISTA DE GUIAS
-            div(style="float: right;margin: 10px 15px;")
+            div(style="float: right;margin: 20px 15px 10px;")
                 button(class="btn btn-info mb-2 mr-2 btn-rounded" @click="showModal = true") Nueva Guia
         div(class="row")
             div(class="col-lg-12 col-12 layout-spacing")
@@ -12,12 +12,12 @@
                         div(class="row")
                             div(class="col-xl-6 col-md-6 col-sm-6 col-6")
                                 h4 BUSQUEDA DE GUIAS
-                            div(class="col-xl-6 col-md-6 col-sm-6 col-6")
+                            div(class="col-xl-6 col-md-6 col-sm-6 col-12")
                                 div(class="row")
-                                    div(class="col-xl-5 col-md-5 col-sm-5 col-5")
-                                    div(class="col-xl-5 col-md-5 col-sm-5 col-5")
+                                    div(class="col-xl-5 col-md-5 col-sm-5 col-4")
+                                    div(class="col-xl-5 col-md-5 col-sm-5 col-4")
                                         input(type="text" class="form-control" style="margin: 15px 15px;height:35px;float: right;" v-model="search" @keyup.enter="getListGuide()")
-                                    div(class="col-xl-2 col-md-2 col-sm-2 col-2")
+                                    div(class="col-xl-2 col-md-2 col-sm-2 col-4")
                                         button(class="btn btn-warning mb-2 mr-2 btn-rounded" style="margin: 15px 15px;float: right;" @click="getListGuide()") Search
                     div(class="widget-content widget-content-area")
                         div(class="table-responsive")

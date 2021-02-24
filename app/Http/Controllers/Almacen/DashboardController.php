@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Almacen;
 
 use App\Http\Controllers\Controller;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -25,6 +26,11 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['technician', 'admin']);
-        return view('almacen.dashboard.index');
+        $totals['general'] = Warehouse::count();
+        $totals['almacen'] = Warehouse::whereTypeWarehouse(1)->count();
+        $totals['campo'] = Warehouse::whereTypeWarehouse(2)->count();
+        return view('almacen.dashboard.index',[
+            'totals' => $totals
+        ]);
     }
 }

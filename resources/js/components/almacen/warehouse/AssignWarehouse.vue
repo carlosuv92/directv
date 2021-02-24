@@ -19,7 +19,7 @@
 <script>
 import { eventBus } from "../../../app.js";
 export default {
-    props: ["show", "arr_decos"],
+    props: ["show", "arr_decos", "type"],
     data() {
         return {
             person : '',
@@ -54,6 +54,7 @@ export default {
         const formData = new FormData()
         formData.append('decos', JSON.stringify(this.decos))
         formData.append('person', this.person)
+        formData.append('type', this.type)
         axios.post("/almacen/warehouse/decos", formData, {
         })
         .then((response) => {

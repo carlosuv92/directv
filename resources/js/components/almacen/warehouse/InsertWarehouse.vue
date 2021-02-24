@@ -43,12 +43,12 @@
                         div(class="row")
                             div(class="col-xl-6 col-md-6 col-sm-6 col-6")
                                 h4 Search
-                            div(class="col-xl-6 col-md-6 col-sm-6 col-6")
+                            div(class="col-xl-6 col-md-6 col-sm-6 col-12")
                                 div(class="row")
-                                    div(class="col-xl-5 col-md-5 col-sm-5 col-5")
-                                    div(class="col-xl-5 col-md-5 col-sm-5 col-5")
+                                    div(class="col-xl-5 col-md-5 col-sm-5 col-4")
+                                    div(class="col-xl-5 col-md-5 col-sm-5 col-4")
                                         input(type="text" class="form-control" style="margin: 15px 15px;height:35px;float: right;" v-model="search" @keyup.enter="getListDecos()")
-                                    div(class="col-xl-2 col-md-2 col-sm-2 col-2")
+                                    div(class="col-xl-2 col-md-2 col-sm-2 col-4")
                                         button(class="btn btn-warning mb-2 mr-2 btn-rounded" style="margin: 15px 15px;float: right;" @click="getListDecos()") Search
                     div(class="widget-content widget-content-area")
                         div(class="table-responsive")

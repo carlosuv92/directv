@@ -6,5 +6,5 @@
             <h3>DASHBOARD</h3>
         </div>
     </div>
-    <dashboard-index></dashboard-index>
+    <dashboard-index :totals="{{json_encode($totals)}}"></dashboard-index>
 @endsection

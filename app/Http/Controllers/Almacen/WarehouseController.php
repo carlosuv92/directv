@@ -30,7 +30,7 @@ class WarehouseController extends Controller
     public function index(Request $request, $id)
     {
         $request->user()->authorizeRoles(['technician', 'admin']);
-        return view('almacen.warehouse.insert',[
+        return view('almacen.warehouse.insert', [
             'guide' => Guide::find($id)
         ]);
     }
@@ -69,12 +69,22 @@ class WarehouseController extends Controller
         DB::beginTransaction();
         try {
             $check_list = json_decode($request->decos);
+            if ($request->type == 2) {
+                foreach ($check_list as $list) {
+                    $deco_tech = WarehouseTechnician::whereWarehouseId($list->id)->whereTypeStatus(1)->first();
+                    if ($deco_tech !== null){
+                        $deco_tech->type_status = $request->type;
+                        $deco_tech->save();
+                    }
+                }
+            }
             $guide_out = $this->generateBarcodeNumber();
             foreach ($check_list as $list) {
                 $deco_tech = new WarehouseTechnician();
                 $deco_tech->warehouse_id = $list->id;
                 $deco_tech->received = $request->person;
                 $deco_tech->send_by = Auth::id();
+                $deco_tech->guide_out = $guide_out;
                 $deco_tech->save();
 
                 $deco_up = Warehouse::whereId($list->id)->first();
@@ -89,7 +99,8 @@ class WarehouseController extends Controller
         }
         return ['guide_out' => $guide_out];
     }
-    function generateBarcodeNumber() {
+    function generateBarcodeNumber()
+    {
         $number = mt_rand(1000000000, 9999999999);
         if ($this->barcodeNumberExists($number)) {
             return generateBarcodeNumber();
@@ -97,7 +108,8 @@ class WarehouseController extends Controller
         return $number;
     }
 
-    function barcodeNumberExists($number) {
+    function barcodeNumberExists($number)
+    {
         return Warehouse::whereGuideOut($number)->exists();
     }
 }

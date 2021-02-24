@@ -6,7 +6,7 @@
                     div(class="widget-content")
                         div(class="w-content")
                             div(class="w-info")
-                                h6(class="value") 125
+                                h6(class="value") {{totals.general}}
                                 p(class="") Total
                             div
                                 div(class="w-icon")
@@ -18,7 +18,7 @@
                     div(class="widget-content")
                         div(class="w-content")
                             div(class="w-info")
-                                h6(class="value") 25
+                                h6(class="value") {{totals.campo}}
                                 p(class="") En Campo
                             div
                                 div(class="w-icon" style="background: #007bff;")
@@ -30,7 +30,7 @@
                     div(class="widget-content")
                         div(class="w-content")
                             div(class="w-info")
-                                h6(class="value") 100
+                                h6(class="value") {{totals.almacen}}
                                 p(class="") En Almacen
                             div
                                 div(class="w-icon" style="background: #28a745;")
@@ -76,6 +76,7 @@
 
 <script>
     export default {
+        props: ["totals"],
         mounted() {
             console.log('Component mounted.')
         }
