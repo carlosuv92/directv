@@ -35,10 +35,16 @@ class WarehouseController extends Controller
         ]);
     }
 
-    public function list(Request $request)
+    public function give(Request $request)
     {
         $request->user()->authorizeRoles(['technician', 'admin']);
         return view('almacen.warehouse.give');
+    }
+
+    public function list(Request $request)
+    {
+        $request->user()->authorizeRoles(['technician', 'admin']);
+        return view('almacen.warehouse.list');
     }
 
     public function store(Request $request)
@@ -59,11 +65,12 @@ class WarehouseController extends Controller
 
     public function storeDecos(Request $request)
     {
+        $guide_out = '';
         DB::beginTransaction();
         try {
             $check_list = json_decode($request->decos);
             $guide_out = $this->generateBarcodeNumber();
-                foreach ($check_list as $list) {
+            foreach ($check_list as $list) {
                 $deco_tech = new WarehouseTechnician();
                 $deco_tech->warehouse_id = $list->id;
                 $deco_tech->received = $request->person;
@@ -80,6 +87,7 @@ class WarehouseController extends Controller
             DB::rollBack();
             throw $ex;
         }
+        return ['guide_out' => $guide_out];
     }
     function generateBarcodeNumber() {
         $number = mt_rand(1000000000, 9999999999);

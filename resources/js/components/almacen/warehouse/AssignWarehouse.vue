@@ -57,11 +57,9 @@ export default {
         axios.post("/almacen/warehouse/decos", formData, {
         })
         .then((response) => {
-            if (response.status == 200) {
-                eventBus.$emit('getListDecos', null)
-                this.$emit("close");
-                this.$emit("print");
-            }
+            eventBus.$emit('getListDecos', null)
+            this.$emit("close");
+            this.$emit("print", response.data.guide_out);
         }) .catch((err) => {
             console.error(err);
         });

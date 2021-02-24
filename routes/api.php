@@ -27,3 +27,5 @@ Route::post('get_users_byrole', [App\Http\Controllers\Api\ApiUserController::cla
 Route::get('get_guides', [App\Http\Controllers\Api\ApiWarehouseController::class, 'getListGuide']);
 Route::get('get_decos', [App\Http\Controllers\Api\ApiWarehouseController::class, 'getListDecos']);
 Route::get('get_all_decos', [App\Http\Controllers\Api\ApiWarehouseController::class, 'getAllListDecos']);
+Route::get('get_warehouse_decos', [App\Http\Controllers\Api\ApiWarehouseController::class, 'getWarehouseListDecos']);
+Route::post('get_print', [App\Http\Controllers\Api\ApiWarehouseController::class, 'getDataPrint']);

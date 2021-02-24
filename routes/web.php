@@ -16,17 +16,22 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::get('/', function () {
-    return redirect('almacen/dashboard');
+    return redirect('dashboard/almacen');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('dashboard')->group(function () {
+    Route::get('/almacen', [App\Http\Controllers\Almacen\DashboardController::class, 'index'])->name('almacen.dashboard');
+});
+
 Route::prefix('almacen')->group(function () {
-    Route::get('/dashboard', [App\Http\Controllers\Almacen\DashboardController::class, 'index'])->name('almacen.dashboard');
     Route::get('/guide-list', [App\Http\Controllers\Almacen\GuideController::class, 'index'])->name('almacen.listguide');
     Route::get('/warehouse/insert/{id}', [App\Http\Controllers\Almacen\WarehouseController::class, 'index'])->name('warehouse.index');
     Route::post('/warehouse', [App\Http\Controllers\Almacen\WarehouseController::class, 'store'])->name('warehouse.store');
-    Route::get('/warehouse/give', [App\Http\Controllers\Almacen\WarehouseController::class, 'list'])->name('warehouse.give');
+    Route::get('/warehouse/give', [App\Http\Controllers\Almacen\WarehouseController::class, 'give'])->name('warehouse.give');
     Route::post('/warehouse/decos', [App\Http\Controllers\Almacen\WarehouseController::class, 'storeDecos'])->name('warehouse.decos');
+    Route::get('/warehouse/list', [App\Http\Controllers\Almacen\WarehouseController::class, 'list'])->name('warehouse.list');
 });
 
 Route::resource('guides', App\Http\Controllers\Almacen\GuideController::class);

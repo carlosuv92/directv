@@ -7,31 +7,33 @@
                             h5(class="modal-title") Imprimir
                             button(type="button" class="close" data-dismiss="modal" aria-label="Close" @click="close")
                                 i(class="fa fa-times")
-                        div(class="modal-body" id="printSection")
+                        div(class="modal-body" id="printMe")
                             div.row(class="m-1" style="justify-content: center;")
                                 h4 Guia de Entrega de Equipo
                             div.row(class="m-1" style="justify-content: center;")
+                                h5(style="font-weight:bold;") GUIA: VC-{{guide_out}}
+                            div.row(class="m-1" style="justify-content: center;")
                                 img(src="/assets/img/favicon.ico" style="width:90px;")
-                            div(class="row inv--product-table-section" style="margin: 0 10px;")
+                            div(class="row inv--product-table-section" style="margin: 15px 10px;")
                                 div(class="col-12")
                                     div(class="table-responsive")
                                         table(class="table")
                                             thead
                                                 tr
-                                                    th IMEI
-                                                    th CARD
-                                                    th(class="text-right") ENTREGADO POR
-                                                    th(class="text-right") RECIBIDO POR
-                                                    th(class="text-right") FECHA DE ENTREGA
+                                                    th(class="text-left") IMEI
+                                                    th(class="text-left") CARD
+                                                    th(class="text-left") ENTREGADO POR
+                                                    th(class="text-left") RECIBIDO POR
+                                                    th(class="text-left") FECHA DE ENTREGA
                                             tbody
-                                                tr
-                                                    td 1
-                                                    td Electric Shaver
-                                                    td(class="text-right") 20
-                                                    td(class="text-right") $300
-                                                    td(class="text-right") $2800
+                                                tr(v-for="d in data" :key="d.id")
+                                                    td(class="text-left") {{d.imei}}
+                                                    td(class="text-left") {{d.card}}
+                                                    td(class="text-left") {{d.s_name}}
+                                                    td(class="text-left") {{d.r_name}}
+                                                    td(class="text-left") {{d.date_s}}
                         div(class="modal-footer")
-                            button(type="button" class="btn btn-primary" @click="print") Asignar
+                            button(type="button" class="btn btn-primary" @click="print") Imprimir
 
 
 </template>
@@ -39,11 +41,11 @@
 <script>
 import { eventBus } from "../../../app.js";
 export default {
-    props: ["show", "arr_decos"],
+    props: ["show", "guide_out"],
     data() {
         return {
-            person : '',
-            users : [],
+            data : [],
+            output: null
         }
     },
     mounted() {
@@ -58,11 +60,19 @@ export default {
       this.$emit("close");
     },
     print () {
-      // Pass the element id here
-      this.$htmlToPaper('printSection');
+      this.$htmlToPaper('printMe');
+    },
+    getData(){
+        axios.post("/api/get_print",{
+            guide_out: this.guide_out
+        })
+        .then((response) => {
+            this.data = response.data;
+        });
     }
   },
   created(){
+      this.getData();
   }
 };
 </script>
@@ -71,7 +81,6 @@ export default {
 * {
   box-sizing: border-box;
 }
-
 
 .modal-mask {
   position: fixed;
