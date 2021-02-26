@@ -24,11 +24,11 @@
                             div(class="col")
                                 div(class="form-group")
                                     label IMEI
-                                    input(:disabled="guide.amount == decos.total" class="form-control form-control-sm" v-model="imei" maxlength="15" type="text" placeholder="15 dígitos")
+                                    input(:disabled="guide.amount == decos.total" ref='imei' class="form-control form-control-sm" v-model="imei" maxlength="15" type="text" placeholder="15 dígitos" @keydown.enter="focusNext(2)")
                             div(class="col")
                                 div(class="form-group")
                                     label CARD
-                                    input(:disabled="guide.amount == decos.total" class="form-control form-control-sm" v-model="card" maxlength="12" type="text" placeholder="12 dígitos")
+                                    input(:disabled="guide.amount == decos.total" ref='card' class="form-control form-control-sm" v-model="card" maxlength="12" type="text" placeholder="12 dígitos" @keydown.enter="savedeco")
                             div(class="col")
                                 div(class="form-group")
                                     label TIPO
@@ -43,12 +43,12 @@
                         div(class="row")
                             div(class="col-xl-6 col-md-6 col-sm-6 col-6")
                                 h4 Search
-                            div(class="col-xl-6 col-md-6 col-sm-6 col-12")
+                            div(class="col-xl-6 col-md-12 col-sm-12 col-12")
                                 div(class="row")
-                                    div(class="col-xl-5 col-md-5 col-sm-5 col-4")
-                                    div(class="col-xl-5 col-md-5 col-sm-5 col-4")
+                                    div(class="col-xl-5 col-md-6 col-sm-6 col-4")
+                                    div(class="col-xl-5 col-md-4 col-sm-4 col-5")
                                         input(type="text" class="form-control" style="margin: 15px 15px;height:35px;float: right;" v-model="search" @keyup.enter="getListDecos()")
-                                    div(class="col-xl-2 col-md-2 col-sm-2 col-4")
+                                    div(class="col-xl-2 col-md-2 col-sm-2 col-3")
                                         button(class="btn btn-warning mb-2 mr-2 btn-rounded" style="margin: 15px 15px;float: right;" @click="getListDecos()") Search
                     div(class="widget-content widget-content-area")
                         div(class="table-responsive")
@@ -84,6 +84,13 @@
             this.getListDecos();
         },
         methods:{
+            focusNext(input){
+                if(input == 1){
+                    this.$refs.imei.focus();
+                }else if(input == 2){
+                    this.$refs.card.focus();
+                }
+            },
             getListDecos(page = 1){
                 axios.get("/api/get_decos?page=" + page + "&search=" + this.search + "&id_guide=" + this.guide.id)
                 .then((response) => {
@@ -102,6 +109,7 @@
                     this.imei=''
                     this.card=''
                     this.getListDecos(1);
+                    this.focusNext(1)
                 }) .catch((err) => {
                     this.$swal.fire({
                         icon: 'error',

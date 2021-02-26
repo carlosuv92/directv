@@ -68,7 +68,9 @@ class ApiWarehouseController extends Controller
             ->where(function ($q) use ($search) {
                 if (strlen($search) > 0) {
                     $q->where('warehouses.imei', "=", $search)
-                        ->orWhere('warehouses.card', "=", $search);
+                        ->orWhere('warehouses.card', "=", $search)
+                        ->orWhere('warehouses.type_warehouse', "=", $search)
+                        ->orWhere(DB::raw('CONCAT(r.name, ", ", r.surname)'), "LIKE","%{$search}%");
                 }
             })
             //->where('warehouse_technicians.type_status',1)
